@@ -1,0 +1,28 @@
+<po-page-list p-title="Empresas">
+    <po-list-view [p-items]="companyList">
+
+        <ng-template p-list-view-content-template let-item>
+            <div class="po-row">
+                <po-widget
+                    class="po-sm-12 po-md-8 po-lg-6"
+                    p-height="150"
+                    p-title="Card"
+                    p-primary-label="Editar"
+                    p-secondary-label="Excluir">
+
+                    <po-avatar
+                        class="po-md-4"
+                        po-size="lg">
+                    </po-avatar>
+
+                    <div class="po-md-8">
+                        <p><b>ID:</b> {{item.id}}</p>
+                        <p><b>Produtos:</b> {{item.products}}</p>
+                        <p><b>Descrição:</b> {{item.description}}</p>
+                    </div>
+                </po-widget>
+            </div>
+        </ng-template>
+
+    </po-list-view>
+</po-page-list>
