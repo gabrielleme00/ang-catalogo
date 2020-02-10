@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { PoListViewAction } from '@portinari/portinari-ui';
+
+import { CompaniesService } from './companies.service';
 
 @Component({
   selector: 'app-companies',
@@ -6,14 +9,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./companies.component.css']
 })
 export class CompaniesComponent implements OnInit {
-  companyList: object[] = [
-    { id: "1", name: "Empresa 001", description: "Primeira empresa de teste.", products: 3 },
-    { id: "2", name: "Empresa 002", description: "Segunda empresa de teste.", products: 30 },
-    { id: "3", name: "Empresa 003", description: "Terceira empresa de teste.", products: 10 }
+  companyList: object[];
+
+  readonly actions: Array<PoListViewAction> = [{
+      label: 'Editar',
+      icon: 'po-icon-edit'
+    }, {
+      label: 'Excluir',
+      type: 'danger',
+      icon: 'po-icon-delete'
+    }
   ];
 
-  constructor() { }
+  constructor(private companiesService: CompaniesService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.loadCompanies();
+  }
+
+  formatTitle(item: any) {
+    return `${item.name}`.toUpperCase();
+  }
+
+  loadCompanies() {
+    this.companiesService.getAll().subscribe((res: any) => {
+      console.log('All companies:', res);
+      if (!res.error) {
+        this.companyList = res.data
+      }
+    });
+  }
 
 }

@@ -12,7 +12,24 @@ export class AppComponent {
 
   readonly menus: Array<PoMenuItem> = [
     { label: 'Início', link: '/', icon: 'po-icon po-icon-home' },
-    { label: 'Empresas', link: '/companies', icon: 'po-icon po-icon-company' },
+    { 
+      label: 'Empresas',
+      link: '/companies',
+      icon: 'po-icon po-icon-company',
+      subItems: [
+        { label: "Listar", link: '/companies' },
+        { label: "Criar" }
+      ]
+    },
+    { 
+      label: 'Produtos',
+      link: '/products',
+      icon: 'po-icon po-icon-stock',
+      subItems: [
+        { label: "Listar", link: '/companies' },
+        { label: "Criar" }
+      ]
+    }
   ];
 
 }
