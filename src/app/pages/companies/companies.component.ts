@@ -1,7 +1,8 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { PoListViewAction } from '@portinari/portinari-ui';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { PoListViewAction, PoDialogService, PoModalComponent } from '@portinari/portinari-ui';
 
 import { CompaniesService } from './companies.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-companies',
@@ -12,16 +13,22 @@ export class CompaniesComponent implements OnInit {
   companyList: object[];
 
   readonly actions: Array<PoListViewAction> = [{
-      label: 'Editar',
-      icon: 'po-icon-edit'
-    }, {
-      label: 'Excluir',
-      type: 'danger',
-      icon: 'po-icon-delete'
-    }
+    label: 'Editar',
+    action: this.editCompany.bind(this),
+    icon: 'po-icon-edit'
+  }, {
+    label: 'Excluir',
+    action: this.deleteCompany.bind(this),
+    type: 'danger',
+    icon: 'po-icon-delete'
+  }
   ];
 
-  constructor(private companiesService: CompaniesService) { }
+  constructor(
+    private router: Router,
+    private companiesService: CompaniesService,
+    private poDialog: PoDialogService,
+  ) { }
 
   ngOnInit() {
     this.loadCompanies();
@@ -33,9 +40,28 @@ export class CompaniesComponent implements OnInit {
 
   loadCompanies() {
     this.companiesService.getAll().subscribe((res: any) => {
-      console.log('All companies:', res);
       if (!res.error) {
-        this.companyList = res.data
+        this.companyList = res.data;
+      } else {
+        console.error(res);
+      }
+    });
+  }
+
+  editCompany(company: any) {
+    const id = company._id;
+
+    this.router.navigate([`companies/edit/${id}`]);
+  }
+
+  deleteCompany(company: any) {
+    this.poDialog.confirm({
+      title: "Exclusão de Empresa",
+      message: "Quer mesmo excluir esta empresa?",
+      confirm: () => {
+        this.companiesService.delete(company._id).subscribe((res: any) => {
+          this.loadCompanies();
+        });
       }
     });
   }

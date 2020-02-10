@@ -14,11 +14,10 @@ export class AppComponent {
     { label: 'Início', link: '/', icon: 'po-icon po-icon-home' },
     { 
       label: 'Empresas',
-      link: '/companies',
       icon: 'po-icon po-icon-company',
       subItems: [
         { label: "Listar", link: '/companies' },
-        { label: "Criar" }
+        { label: "Criar", link: '/companies/create' }
       ]
     },
     { 

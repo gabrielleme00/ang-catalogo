@@ -1,0 +1,55 @@
+<po-page-default p-title="Editar Empresa">
+    <form [formGroup]="companyForm">
+        <div class="po-row">
+            <po-input
+                class="po-md-12"
+                formControlName="name"
+                p-clean
+                p-icon="po-icon-company"
+                p-label="Nome da empresa *"
+                p-maxlength="30"
+            ></po-input>
+        </div>
+
+        <div class="po-row">
+            <po-input
+                class="po-md-3"
+                formControlName="cnpj"
+                p-clean
+                p-label="CNPJ *"
+                p-mask="99.999.999/9999-99"
+            ></po-input>
+            <po-input
+                class="po-md-8"
+                formControlName="address"
+                p-clean
+                p-label="Endereço"
+                p-maxlength="50"
+            ></po-input>
+            <po-number
+                class="po-md-1"
+                formControlName="workers"
+                p-clean
+                p-label="Funcionários"
+            ></po-number>
+        </div>
+
+        <div class="po-row">
+            <po-textarea
+                class="po-md-12"
+                formControlName="description"
+                p-label="Descrição"
+                p-maxlength="100"
+            ></po-textarea>
+        </div>
+
+        <div class="po-row">
+          <po-button
+            class="po-md-3"
+            p-label="Salvar"
+            [p-disabled]="!companyForm.valid"
+            (p-click)="saveCompany()">
+          </po-button>
+        </div>
+    </form>
+</po-page-default>

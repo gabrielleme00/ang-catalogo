@@ -22,12 +22,11 @@ export class CompaniesService {
     return this.http.get(`${environment.apiUrl}/company/get/${id}`);
   }
 
-  update(company: any) {
-    const id = company._id;
+  update(id: string, company: any) {
     return this.http.put(`${environment.apiUrl}/company/update/${id}`, company);
   }
 
   delete(id: String) {
-    return this.http.delete(`${environment.apiUrl}/company/update/${id}`);
+    return this.http.delete(`${environment.apiUrl}/company/delete/${id}`);
   }
 }
